@@ -1,0 +1,32 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Results</title>
+    <link rel="stylesheet" href="{% static 'users/result.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Your Results</h2>
+      <ul>
+        {% for result in results %}
+        <li>
+          <strong>Question:</strong> {{ result.question }} <br />
+          <strong>Your Answer:</strong> {{ result.user_answer }} <br />
+          <strong>Correct Answer:</strong> {{ result.correct_answer }} <br />
+          {% if result.is_correct %}
+          <span class="correct">Correct</span>
+          {% else %}
+          <span class="wrong">Wrong</span>
+          {% endif %}
+        </li>
+        {% endfor %}
+      </ul>
+      <div class="footer">
+        <a href="{% url 'dashboard' %}">Try Again</a>
+      </div>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,40 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard - MCQ</title>
+    <link rel="stylesheet" href="{% static 'users/dashboard.css' %}" />
+  </head>
+  <body>
+    <h2>Answer the MCQs:</h2>
+    <form method="POST" action="{% url 'result' %}">
+      {% csrf_token %}
+
+      <!-- Iterate over questions -->
+      {% for question in questions %}
+      <div class="question-block">
+        <p><strong>{{ question.id }}. {{ question.question }}</strong></p>
+
+        <!-- Iterate over each option for the question -->
+        {% for option in question.options %}
+        <label>
+          <input
+            type="radio"
+            name="q{{ question.id }}"
+            value="{{ option }}"
+            required
+          />
+          {{ option }}
+        </label>
+        <br />
+        {% endfor %}
+      </div>
+      <hr />
+      {% endfor %}
+
+      <button type="submit">Submit Answers</button>
+    </form>
+  </body>
+</html>
